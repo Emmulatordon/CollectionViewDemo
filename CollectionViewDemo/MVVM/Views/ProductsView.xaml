@@ -5,47 +5,13 @@
              Title="ProductsView"
              xmlns:viewmodel="clr-namespace:CollectionViewDemo.MVVM.ViewModels"
              xmlns:model="clr-namespace:CollectionViewDemo.MVVM.Models"
-             x:DataType="viewmodel:ProductsViewModel">
-    <CollectionView ItemsSource="{Binding Products}">
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="model:Product">
-                <Grid Margin="15,10,15,0"
-                      ColumnDefinitions=".1*,.2*,.7*"
-                      RowDefinitions=".5*,.5*">
-                    <Frame Grid.Row="0"
-                           Grid.Column="1"
-                           Grid.ColumnSpan="2"
-                           Grid.RowSpan="2"
-                           BorderColor="White">
-                        <Frame.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                <GradientStopCollection>
-                                    <GradientStop Offset="0" Color="Yellow" />
-                                    <GradientStop Offset="1" Color="Green" />
-                                </GradientStopCollection>
-                            </LinearGradientBrush>
-                        </Frame.Background>                        
-                    </Frame>
-                    <Image Source="{Binding Image}"
-                           Grid.Column="0"
-                           Grid.Row="0"
-                           Grid.ColumnSpan="2"
-                           Grid.RowSpan="2"
-                           HeightRequest="100"/>
-                    <Label Grid.Row="0"
-                           Grid.Column="2"
-                           FontSize="Large"
-                           VerticalOptions="Center"
-                           Text="{Binding Name}" />
-                    <Label Grid.Row="1"
-                           Grid.Column="2"
-                           FontSize="Large"
-                           VerticalOptions="Center"
-                           Text="{Binding Price,StringFormat='{0:C}'}" />
-                </Grid>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-        
+             x:DataType="viewmodel:ProductsViewModel"
+             xmlns:DataTemplates="clr-namespace:CollectionViewDemo.Selectors">
+    <ContentPage.Resources>
+        <DataTemplates:ProductDataTemplateSelector x:Key="ProductsDataTemplates" />
+    </ContentPage.Resources>
+    <CollectionView ItemsSource="{Binding Products}"
+                    ItemTemplate="{StaticResource ProductsDataTemplates}">        
     </CollectionView>
 
 </ContentPage>
